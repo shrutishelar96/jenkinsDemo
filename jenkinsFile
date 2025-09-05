@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/shrutishelar96/jenkinsDemo',
+                    credentialsId: 'ecf815ab-0b0f-442a-9767-d2b76edddaf6'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'echo Compiling C++ program...'
+                sh 'g++ test.cpp -o test'
+            }
+        }
+
+        stage('Run') {
+            steps {
+                sh 'echo Running program...'
+                sh './test'
+            }
+        }
+    }
+}
